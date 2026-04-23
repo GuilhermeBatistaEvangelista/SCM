@@ -7,7 +7,7 @@ from algorithms.DMBCG import dmbcg
 
 #Hints
 from FilesHandler import FileHandler
-
+from render import render
 
 class Test():
 	def __init__(self, fileHandler: FileHandler):
@@ -15,6 +15,7 @@ class Test():
 
 		self.fileHandler = fileHandler
 		self.metricsUtils = Metrics()
+		self.render = render()
 
 	def test(self, stimator, score, parents_number: int, namePath: str):
 		graph_origin = nx.DiGraph()
@@ -30,6 +31,7 @@ class Test():
 		print(f'\nMODELO: {model}\n\nPONTUAÇÃO: {score_metric}')
 		graph_origin = self.fileHandler.file_to_graph(namePath + "SEM")
 
+		self.render.renderComparationGraph(graph_origin, model, namePath)
 
 		print(f'\nComparando o grafo induzido pelo DMBBN ao grafo original do SCM:')
 		metrics = self.metricsUtils.getMetrics(graph_origin, model)
